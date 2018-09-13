@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    Map
+{% endblock title %}
+
+{% block content %}
+<h1>Enter the coordinates here</h1>
+    <form method="post"> {% csrf_token %}
+        <div>
+            <label for="from">{% trans 'From' %}</label>
+            <input type="text" id="from" name="from" />
+        </div><br>
+        <div>
+            <label for="to">{% trans 'To' %}</label>
+            <input type="text" id="to" name="to" />
+        </div><br>
+        <button type="submit">
+            {% trans 'Submit' %}
+        </button>
+    </form>
+{% endblock content %}
+    
