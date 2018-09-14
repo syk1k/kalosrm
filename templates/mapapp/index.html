@@ -10,17 +10,25 @@
 
 {% block content %}
     <link rel="stylesheet" href=" {% static 'leaflet/leaflet.css' %} " />
+    <link rel="stylesheet" href=" {% static 'Leaflet.ExtraMarkers-master/dist/css/leaflet.extra-markers.min.css' %} " />
 
     <div id="map" style="height: 600px;">
 
     </div>
     <div>
        <pre> {{ result }} </pre><br>
-       Distance : {{ distance }} m <br>
+       Distance : {{ distance }} km <br>
+       Distance Arrondie : {{ distance_arrondie }} km <br>
+       Prix de la livraison : {{ prix }} Franc CFA
+      
     </div>
 
+    <script>
+        var latlong = '{{latlong}}';
+    </script>
 
     <script src=" {% static 'leaflet/leaflet.js' %} "></script>
+    <script src=" {% static 'Leaflet.ExtraMarkers-master/dist/js/leaflet.extra-markers.min.js' %} "></script>
     <script src=" {% static 'js/app.js' %} "></script>
 {% endblock content %}
     
