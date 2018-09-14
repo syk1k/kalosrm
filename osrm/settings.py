@@ -25,7 +25,7 @@ SECRET_KEY = 'kqb+86idi!^&%%8lzu9-+cmh&=o4(4j6r%xkoileg737c()t1w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['kalosrm.herokuapp.com']
 
 
 # Application definition
