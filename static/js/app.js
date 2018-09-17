@@ -1,57 +1,74 @@
-(()=>{
-    var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    });
-
-    var map = L.map("map", {
-        center : [8.695, 2.395],
-        zoom : 7,
-        zoomControl: true,
-        scrollWheelZoom : true,
-        attributionControl: true,
-        layers: [osm]
-    });
+mapboxgl.accessToken = 'pk.eyJ1IjoiaGVybWFubmthc3MiLCJhIjoiMDQwM2RiZjA3OGE2NTU3YjE0NmIxYTE3NjkzMjI4MzYifQ.xZBFTfG8WU0pUfAvr6dH4A';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [1.1756604,6.177847],
+    zoom: 13
+});
 
 
-    var redMarker = L.ExtraMarkers.icon({
-        icon: 'fa-coffee',
-        markerColor: 'red',
-        shape: 'circle',
-        prefix: 'fa'
-    });
+// Control implemented as ES6 class
+class InfoControl {
+    onAdd(map) {
+        this._map = map;
+        this._container = document.createElement('div');
+        this._container.className = 'mapboxgl-ctrl info-ctrl';
+        this._container.innerHTML = '<span class="info-ctrl-head">Information concernant la livraison</span>';
+        return this._container;
+    }
 
-    var greenMarker = L.ExtraMarkers.icon({
-        icon: 'fa-coffee',
-        markerColor: 'green',
-        shape: 'circle',
-        prefix: 'fa'
-    });
+    onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+    }
+}
 
-    try{
-        latlong = JSON.parse(latlong);
-        console.log(latlong);
+var control_ = new InfoControl();
 
-        from_ = latlong[0]
-        to_ = latlong[latlong.length-1]
 
-        from_marker = L.marker(from_, {icon: redMarker});
-        from_marker.addTo(map);
-        from_marker.bindPopup("From");
-        to_marker = L.marker(to_, {icon: greenMarker});
-        to_marker.addTo(map);
-        to_marker.bindPopup("To");
+var direction = new MapboxDirections({
+    accessToken: mapboxgl.accessToken,
+    unit: 'metric',
+});
 
-       
-        
 
-        var polyline = L.polyline(latlong, {color: 'red'}).addTo(map);
-        // zoom the map to the polyline
-        map.fitBounds(polyline.getBounds());
-    }catch(e){
+map.addControl( direction , 'top-right');
+map.addControl(control_, 'top-right');
 
+direction.on('route', (e)=>{
+    // e => {route:[]}
+    console.log(e);
+    var distance = e["route"][0]["distance"];
+    distance = distance / 1000;
+    var distance_arrondie = parseInt(distance);
+
+    if (distance_arrondie>distance){
+        distance_arrondie = distance_arrondie - 1;
+    }
+
+    var rest_distance = distance - distance_arrondie;
+
+    if (rest_distance>0.5){
+        distance_arrondie = distance_arrondie + 1 ;
     }
     
 
-    
+    var prix = 100 * distance_arrondie;
+    console.log(distance);
+    console.log(distance_arrondie);
+    console.log(prix);
 
-})();
+    var infoElement = document.querySelector('.info-ctrl');
+    infoElement.innerHTML = infoElement.innerHTML + "<br><div class='info-ctrl-content'>"+
+    "<p>Distance: "+distance+" KM</p>"+
+    "<p>Distance Arrondie: "+distance_arrondie+" KM</p>"+
+    "<p>Prix de la livraison: "+prix+" FCFA </p>"+
+    "</div>";
+});
+
+map.on('load', ()=>{
+    direction.setOrigin([1.15800,6.18671])
+});
+
+var language = new MapboxLanguage();
+map.addControl(language, 'top-left');
