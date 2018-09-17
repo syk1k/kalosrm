@@ -3,7 +3,8 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: [1.1756604,6.177847],
-    zoom: 13
+    zoom: 13,
+    attributionControl: false,
 });
 
 
@@ -72,3 +73,8 @@ map.on('load', ()=>{
 
 var language = new MapboxLanguage();
 map.addControl(language, 'top-left');
+
+map.addControl(new mapboxgl.AttributionControl({
+    compact: true,
+    customAttribution : '<a href="http://kalamar.tg">kalamar</a>'
+}));
