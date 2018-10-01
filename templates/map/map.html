@@ -1,76 +1,3 @@
-<!-- {% comment %} <!DOCTYPE html>
-<html>
-  <head>
-    <title>Interactive maps for Django web apps</title>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
-
-
-  </head>
-  <body>
-   <div id='map' width="100%" style='height:60em'></div>
-   <script>
-    mapboxgl.accessToken = '{{ mapbox_access_token }}';
-    var map = new mapboxgl.Map({
-     container: 'map',
-     //style: 'mapbox://styles/mapbox/streets-v10',
-     style: 'mapbox://styles/mapbox/satellite-streets-v10',
-     center: [1.1756604,6.177847],
-     zoom: 12,
-     //bearing: 180
-     /*style: 'mapbox://styles/mapbox/satellite-streets-v10',
-     center: [-77.03, 38.91],
-     zoom: 9,
-     bearing: 180*/
-    });
-   </script>
-  </body>
-</html> {% endcomment %}
-
-{% comment %} 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8' />
-    <title>Display driving directions</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
-    <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
-    </style>
-</head>
-<body>
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v0.10.0/mapbox-gl-language.js'></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.js'></script>
-<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.css' type='text/css' />
-<div id='map'></div>
-
-<script>
-mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
-
-mapboxgl.accessToken = 'pk.eyJ1IjoiaGVybWFubmthc3MiLCJhIjoiMDQwM2RiZjA3OGE2NTU3YjE0NmIxYTE3NjkzMjI4MzYifQ.xZBFTfG8WU0pUfAvr6dH4A';
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    center: [1.1756604,6.177847],
-    zoom: 13
-});
-
-map.addControl(new MapboxDirections({
-    accessToken: mapboxgl.accessToken, language: 'fr', unit: 'metric',
-}), 'top-left');
-//var language = new MapboxLanguage();["resolved-locale", collator]: string
-//map.addControl(language);
-</script>
-
-</body>
-</html> {% endcomment %} -->
-
-
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -80,115 +7,30 @@ map.addControl(new MapboxDirections({
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v0.10.0/mapbox-gl-language.js'>
-    </script>
-
+    <link href="{% static 'vendor/bulma-0.7.1/css/bulma.css' %}" rel="stylesheet"/>
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
-        .info-ctrl{
-            background-color: white;
-            width:80%;
-            padding: 5px;
-            background: #fff;
-            margin: 7px 0 0;
-            border-radius: 4px;
-            vertical-align: middle;
+
+        #from_ {
+          margin-bottom: 0px;
         }
-        .info-ctrl-head{
-            text-align: right;
-            margin-left: 20px;
+
+        .from_,.to_{
+            width: 1px;
+            cursor: default;
         }
-        .info-ctrl-content{
-            margin-left: 10px;
-        }
+
     </style>
 </head>
 <body>
-
-<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.js'></script>
-<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.css' type='text/css' />
-
-<div id='map'>
-
-</div>
-
-<script src=" {% static 'js/app.js' %}">
-</script>
-
-</body>
-</html>
-
-
-
-<!--<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8' />
-    <title>Display buildings in 3D</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
-    <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
-    </style>
-</head>
-<body>
-
-<div id='map'></div>
+    <div id='map'></div>
 <script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiaGVybWFubmthc3MiLCJhIjoiMDQwM2RiZjA3OGE2NTU3YjE0NmIxYTE3NjkzMjI4MzYifQ.xZBFTfG8WU0pUfAvr6dH4A';
-var map = new mapboxgl.Map({
-    style: 'mapbox://styles/mapbox/light-v9',
-    center: [1.1756604,6.177847],
-    zoom: 15.5,
-    pitch: 45,
-    bearing: -17.6,
-    container: 'map'
-});
-
-// The 'building' layer in the mapbox-streets vector source contains building-height
-// data from OpenStreetMap.
-map.on('load', function() {
-    // Insert the layer beneath any symbol layer.
-    var layers = map.getStyle().layers;
-
-    var labelLayerId;
-    for (var i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-            labelLayerId = layers[i].id;
-            break;
-        }
-    }
-
-    map.addLayer({
-        'id': '3d-buildings',
-        'source': 'composite',
-        'source-layer': 'building',
-        'filter': ['==', 'extrude', 'true'],
-        'type': 'fill-extrusion',
-        'minzoom': 15,
-        'paint': {
-            'fill-extrusion-color': '#aaa',
-
-            // use an 'interpolate' expression to add a smooth transition effect to the
-            // buildings as the user zooms in
-            'fill-extrusion-height': [
-                "interpolate", ["linear"], ["zoom"],
-                15, 0,
-                15.05, ["get", "height"]
-            ],
-            'fill-extrusion-base': [
-                "interpolate", ["linear"], ["zoom"],
-                15, 0,
-                15.05, ["get", "min_height"]
-            ],
-            'fill-extrusion-opacity': .6
-        }
-    }, labelLayerId);
-});
+    let token = "{{ csrf_token }}"
 </script>
 
+<script src="{% static 'js/app.js' %}"></script>
+
 </body>
-</html> -->
+
+</html>
