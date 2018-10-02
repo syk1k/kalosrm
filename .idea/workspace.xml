@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1edb3c8d-a150-4e60-b6b1-d3387b358d9f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/routing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/routing.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maps/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/maps/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/map/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/map/map.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,8 +53,13 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="131" column="43" selection-start-line="131" selection-start-column="43" selection-end-line="131" selection-end-column="43" />
+            <state relative-caret-position="1150">
+              <caret line="334" column="52" selection-start-line="334" selection-start-column="52" selection-end-line="334" selection-end-column="52" />
+              <folding>
+                <element signature="e#6103#6166#0" />
+                <element signature="e#6179#6211#0" />
+                <element signature="e#6228#6778#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -66,8 +67,8 @@
       <file leaf-file-name="map.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/map/map.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="270">
+              <caret line="18" column="19" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -82,8 +83,8 @@
       <list>
         <option value="$PROJECT_DIR$/maps/urls.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/templates/map/map.html" />
         <option value="$PROJECT_DIR$/maps/views.py" />
+        <option value="$PROJECT_DIR$/templates/map/map.html" />
         <option value="$PROJECT_DIR$/static/js/app.js" />
       </list>
     </option>
@@ -99,7 +100,7 @@
       <path value="$PROJECT_DIR$/static/vendor/bulma-0.7.1/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="width" value="801" />
     <option name="height" value="900" />
   </component>
@@ -167,7 +168,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-1" width="1602" height="903" extended-state="6" />
+    <frame x="-1" y="-1" width="1602" height="903" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="5" />
@@ -175,8 +176,8 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="9" />
-      <window_info active="true" anchor="right" id="Run" order="5" visible="true" weight="0.24581724" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="right" id="Run" order="5" visible="true" weight="0.24581724" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32987013" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.16344917" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -243,6 +244,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3300">
           <caret line="220" lean-forward="true" selection-start-line="220" selection-end-line="220" />
+          <folding>
+            <element signature="e#6103#6166#0" />
+            <element signature="e#6179#6211#0" />
+            <element signature="e#6228#6778#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -277,6 +283,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2625">
           <caret line="175" column="27" selection-start-line="175" selection-start-column="27" selection-end-line="175" selection-end-column="27" />
+          <folding>
+            <element signature="e#6103#6166#0" />
+            <element signature="e#6179#6211#0" />
+            <element signature="e#6228#6778#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -421,13 +432,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/map/map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/maps/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="746">
@@ -438,10 +442,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/map/map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="19" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="131" column="43" selection-start-line="131" selection-start-column="43" selection-end-line="131" selection-end-column="43" />
+        <state relative-caret-position="1150">
+          <caret line="334" column="52" selection-start-line="334" selection-start-column="52" selection-end-line="334" selection-end-column="52" />
+          <folding>
+            <element signature="e#6103#6166#0" />
+            <element signature="e#6179#6211#0" />
+            <element signature="e#6228#6778#0" />
+          </folding>
         </state>
       </provider>
     </entry>

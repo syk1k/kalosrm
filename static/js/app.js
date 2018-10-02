@@ -32,33 +32,9 @@ let marker = new mapboxgl.Marker()
   .setLngLat([6.15,1.25])
   .addTo(map);
 
-/*
-map.on('load', function () {
-
-    map.addLayer({
-        "id": "route",
-        "type": "line",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "Feature",
-                "properties": {},
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": [[1.667,6.17]]
-                }
-            }
-        },
-        "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-        },
-        "paint": {
-            "line-color": "#888",
-            "line-width": 8
-        },
-    });
-});*/
+let distance = 0;
+let distance_arrondie = 0;
+let prix = 0;
 
 
 
@@ -135,8 +111,10 @@ let routeElement = document.querySelector(".route-ctrl");
 routeElement.innerHTML = ""+
     "<div class='card'>" +
     "<header class='card-header'><p class='card-header-title'>Information concernant la livraison</p></header>" +
-    "<div class='card-content'><div class='content'>HH</div></div>" +
-    "<footer class='card-footer'></footer>"+
+    "<div class='card-content'><div class='content'></div></div>"+
+    "<footer class='card-footer'><a href='https://bulma.io'> " +
+    "<p>Made with Bulma</p>" +
+    "</a></footer>"+
     "</div>";
 
 
@@ -167,7 +145,7 @@ to_el.innerText = "B";
 
 
 let fromMarker = new mapboxgl.Marker({
-    //element: from_el,
+    element: from_el,
     draggable: true,
     anchor: 'center'
 });
@@ -176,7 +154,6 @@ let fromMarker = new mapboxgl.Marker({
 let toMarker = new mapboxgl.Marker({
     //element: to_el,
     draggable: true,
-    anchor: 'center',
 });
 
 
@@ -213,6 +190,11 @@ map.on('dblclick', (data)=>{
 
         console.log(btn_title);
         btn_title = "B";
+
+        if(toCoordinates){
+            route();
+        }
+
     }else if (btn_title==='B'){
         console.log(data);
         console.log(data.lngLat);
@@ -282,6 +264,8 @@ function route() {
         if (reponse){
             console.log(reponse);
 
+
+
             // Add the layer to the map.
 
             if(map.getLayer('route')){
@@ -340,6 +324,15 @@ function route() {
                  });
 
             }
+
+            distance = reponse['distance'];
+            distance_arrondie = reponse['distance_arrondie'];
+            prix = reponse['prix'];
+
+            let content = document.querySelector(".content");
+            content.innerHTML = "Distance: "+distance+" KM<br>"+
+                "Distance Arrondie: "+distance_arrondie+" KM<br>" +
+                "Prix de la livraison: "+prix+" FCFA"
 
         }
 
