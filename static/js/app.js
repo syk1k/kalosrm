@@ -28,12 +28,12 @@ map.addControl(new mapboxgl.GeolocateControl({
 
 map.addControl(new mapboxgl.FullscreenControl());
 
-var marker = new mapboxgl.Marker()
+let marker = new mapboxgl.Marker()
   .setLngLat([6.15,1.25])
   .addTo(map);
 
-
-/*map.on('load', function () {
+/*
+map.on('load', function () {
 
     map.addLayer({
         "id": "route",
@@ -45,7 +45,7 @@ var marker = new mapboxgl.Marker()
                 "properties": {},
                 "geometry": {
                     "type": "LineString",
-                    "coordinates": coordinates
+                    "coordinates": [[1.667,6.17]]
                 }
             }
         },
@@ -56,10 +56,19 @@ var marker = new mapboxgl.Marker()
         "paint": {
             "line-color": "#888",
             "line-width": 8
-        }
+        },
     });
 });*/
 
+
+
+/******************************************************************************************************************** /
+
+Custom IControls
+
+ / *******************************************************************************************************************/
+
+// Direction inputs controls.
 
 class DirectionsControl {
     onAdd(map) {
@@ -83,21 +92,55 @@ let directionElement = document.querySelector(".direction-ctrl");
 directionElement.innerHTML = "" +
     "<div class='field has-addons' id='from_'> " +
     "<div class='control'>" +
-    "<a class='button is-primary' id='btn-from'>A</a>" +
+    "<a class='button is-primary is-small' id='btn-from'>A</a>" +
     "</div>" +
     "<div class='control'>" +
-    "<input id='depart' class='input' type='text' placeholder='Départ'>" +
+    "<input id='depart' class='input is-small' type='text' placeholder='Départ'>" +
     "</div>" +
     "</div>"+
 
     "<div class='field has-addons' id='to_'>" +
     "<div class='control'>" +
-    "<a class='button is-success' id='btn-to'>B</a>" +
+    "<a class='button is-success is-small' id='btn-to'>B</a>" +
     "</div>" +
     "<div class='control'>" +
-    "<input id='arrive' class='input' type='text' placeholder='Arrivé'>" +
+    "<input id='arrive' class='input is-small' type='text' placeholder='Arrivé'>" +
     "</div>" +
     "</div>";
+
+
+
+
+// Routing result control
+
+
+class RoutingResult{
+    onAdd(map) {
+        this._map = map;
+        this._container = document.createElement('div');
+        this._container.className = 'mapboxgl-ctrl route-ctrl';
+        this._container.textContent = 'Hello, world';
+        return this._container;
+    }
+
+    onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+    }
+}
+
+map.addControl(new RoutingResult(), 'bottom-left');
+
+let routeElement = document.querySelector(".route-ctrl");
+routeElement.innerHTML = ""+
+    "<div class='card'>" +
+    "<header class='card-header'><p class='card-header-title'>Information concernant la livraison</p></header>" +
+    "<div class='card-content'><div class='content'>HH</div></div>" +
+    "<footer class='card-footer'></footer>"+
+    "</div>";
+
+
+
 
 // How to display markers on the map on click
 
@@ -124,41 +167,24 @@ to_el.innerText = "B";
 
 
 let fromMarker = new mapboxgl.Marker({
-    element: from_el,
+    //element: from_el,
     draggable: true,
     anchor: 'center'
 });
 
 
 let toMarker = new mapboxgl.Marker({
-    element: to_el,
+    //element: to_el,
     draggable: true,
     anchor: 'center',
 });
 
 
-// Adding markers on the map when the user make a doubleclick event.
-map.on('dblclick', (data)=>{
-    if(btn_title && btn_title==='A'){
-        console.log(data);
-        console.log(data.lngLat);
-        fromMarker.setLngLat([data.lngLat.lng, data.lngLat.lat]).addTo(map);
-        console.log(btn_title);
-        btn_title = "B";
-        data = {};
-    }else if (btn_title==='B'){
-        console.log(data);
-        console.log(data.lngLat);
-        toMarker.setLngLat([data.lngLat.lng, data.lngLat.lat]).addTo(map);
-        console.log(btn_title);
-        btn_title = "B";
-        data = {};
-    }
-    
-});
 
+let fromCoordinates;
+let toCoordinates;
 
-// Marker events
+// Ajax request object for the server communications...
 
 let ajax = new XMLHttpRequest();
 
@@ -166,21 +192,164 @@ let url = "";
 
 
 
-fromMarker.on('dragend', ()=>{
-    ajax.open("POST", url);
-    ajax.send();
+
+/********************************************************************************************************************* /
+
+ Adding markers on the map when the user make a doubleclick event and getting the coordinates of the marker on the map.
+
+
+/ *********************************************************************************************************************/
+
+map.on('dblclick', (data)=>{
+    if(btn_title==='A'){
+        console.log(data);
+        console.log(data.lngLat);
+        fromMarker.setLngLat([data.lngLat.lng, data.lngLat.lat]).addTo(map);
+        fromCoordinates = [data.lngLat.lng,data.lngLat.lat];
+
+        // Fetch the input value
+        let element = document.getElementById('depart');
+        element.setAttribute('value', fromCoordinates);
+
+        console.log(btn_title);
+        btn_title = "B";
+    }else if (btn_title==='B'){
+        console.log(data);
+        console.log(data.lngLat);
+        toMarker.setLngLat([data.lngLat.lng, data.lngLat.lat]).addTo(map);
+        toCoordinates = [data.lngLat.lng,data.lngLat.lat];
+        console.log(btn_title);
+        btn_title = "B";
+
+        // Fetch the input value
+        let element = document.getElementById('arrive');
+        element.setAttribute('value', toCoordinates);
+        console.log(fromCoordinates+","+toCoordinates);
+
+        route();
+    }
+    
 });
 
+
+
+/********************************************************************************************************************* /
+
+ Marker events
+
+/ *********************************************************************************************************************/
+
+
+
+
+fromMarker.on('dragend', (e)=>{
+    fromCoordinates = [fromMarker.getLngLat().lng,fromMarker.getLngLat().lat];
+    console.log(fromCoordinates);
+
+    let element = document.getElementById('depart');
+    element.setAttribute('value', fromCoordinates);
+
+    if(toCoordinates){
+        route();
+    }
+
+});
+
+
 toMarker.on('dragend', ()=>{
+    toCoordinates = [toMarker.getLngLat().lng,toMarker.getLngLat().lat];
+    console.log(toCoordinates);
+
+     let element = document.getElementById('arrive');
+     element.setAttribute('value', toCoordinates);
+
+     route();
+
+
+});
+
+
+function route() {
     ajax.open("POST", url);
     ajax.setRequestHeader('X-CSRFToken', token);
 
-    ajax.onreadystatechange = ()=>{
-      console.log(ajax.response);
-    };
-    ajax.send();
-});
+    ajax.responseType = 'json';
 
-toMarker.on('dragend', ()=>{
-    console.log("To marker Drag ended ...");
-});
+    ajax.onreadystatechange = ()=>{
+
+        let reponse = ajax.response;
+
+        if (reponse){
+            console.log(reponse);
+
+            // Add the layer to the map.
+
+            if(map.getLayer('route')){
+                console.log('The layer already exist');
+                map.removeLayer('route');
+                map.removeSource('route');
+
+                 map.addLayer({
+                    "id": "route",
+                    "type": "line",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": reponse['lnglat']
+                            }
+                        }
+                    },
+                    "layout": {
+                        "line-join": "round",
+                        "line-cap": "round"
+                    },
+                    "paint": {
+                        "line-color": "#888",
+                        "line-width": 8
+                    },
+                 });
+
+            }else{
+
+                 map.addLayer({
+                    "id": "route",
+                    "type": "line",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": reponse['lnglat']
+                            }
+                        }
+                    },
+                    "layout": {
+                        "line-join": "round",
+                        "line-cap": "round"
+                    },
+                    "paint": {
+                        "line-color": "#888",
+                        "line-width": 8
+                    },
+                 });
+
+            }
+
+        }
+
+    };
+
+
+    // Bind data to the request
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    ajax.send("from="+fromCoordinates+"&to="+toCoordinates);
+}
+
+
+

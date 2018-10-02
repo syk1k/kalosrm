@@ -65,16 +65,16 @@ class MapView(View):
             prix = 100 * distance_arrondie
 
             #latlong = self.convert_longlat_latlong(coordinates)
-            latlong = coordinates
+            lnglat = coordinates
 
-            print(latlong)
+            print(lnglat)
             context = {
                 'result': result.json(),
                 'from': from_,
                 'to': to_,
                 'distance': distance,
                 'distance_arrondie': distance_arrondie,
-                'latlong': latlong,
+                'lnglat': lnglat,
                 'prix': prix,
                 'mapbox_access_token': mapbox_access_token,
             }
