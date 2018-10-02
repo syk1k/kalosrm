@@ -112,9 +112,8 @@ routeElement.innerHTML = ""+
     "<div class='card'>" +
     "<header class='card-header'><p class='card-header-title'>Information concernant la livraison</p></header>" +
     "<div class='card-content'><div class='content'></div></div>"+
-    "<footer class='card-footer'><a href='https://bulma.io'> " +
-    "<p>Made with Bulma</p>" +
-    "</a></footer>"+
+    "<footer class='card-footer'>" +
+    "</footer>"+
     "</div>";
 
 
