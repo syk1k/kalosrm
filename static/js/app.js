@@ -12,7 +12,7 @@ var nav = new mapboxgl.NavigationControl();
 map.addControl(nav);
 
 map.addControl(new mapboxgl.AttributionControl({
-    compact: true,
+    //compact: true,
     customAttribution : '<a href="http://kalamar.tg">kalamar</a>'
 }));
 
@@ -332,7 +332,12 @@ function route() {
             let content = document.querySelector(".content");
             content.innerHTML = "Distance: "+distance+" KM<br>"+
                 "Distance Arrondie: "+distance_arrondie+" KM<br>" +
-                "Prix de la livraison: "+prix+" FCFA"
+                "Prix de la livraison: "+prix+" FCFA<br><br>" +
+                "<a href='/route/result/?" +
+                "from="+reponse['from']+
+                "&to="+reponse['to']+
+                "&distance="+reponse['distance']
+                +"' class='button is-small is-link is-right'> Submit</a>"
 
         }
 

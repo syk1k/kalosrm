@@ -81,3 +81,17 @@ class MapView(View):
         except:
             print("Error")
         return JsonResponse(context)
+
+
+
+class RouteResultView(View):
+    def get(self, *args, **kwargs):
+        from_ = self.request.GET.get('from')
+        to_ = self.request.GET.get('to')
+        distance = self.request.GET.get('distance')
+        context = {
+            "From": from_,
+            "To": to_,
+            "Distance": distance,
+        }
+        return JsonResponse(context)
